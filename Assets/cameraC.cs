@@ -18,7 +18,7 @@ public class cameraC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Mathf.Clamp(pitch, pitchmin, pitchmax);
+        pitch = Mathf.Clamp(pitch, pitchmin, pitchmax);
         pitch -= sensitive*Input.GetAxis("Mouse Y");
         yaw += sensitive * Input.GetAxis("Mouse X");
         transform.localEulerAngles = new Vector3(pitch, yaw, roll);

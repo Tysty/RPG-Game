@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class controller : MonoBehaviour {
     CharacterController cc;
+    public Camera cam;
     public string state = "Movement";
     public float jumpVel = 0;
     public float jumpH = 16;
@@ -12,6 +13,7 @@ public class controller : MonoBehaviour {
     public float movespeed = 4;
 	// Use this for initialization
 	void Start () {
+        cam = Camera.main;
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
 	}
@@ -36,6 +38,8 @@ public class controller : MonoBehaviour {
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(x, 0, z).normalized;
+        float camerad = cam.transform.localEulerAngles.y;
+        direction = Quaternion.AngleAxis(camerad, Vector3.up)*direction;
         Vector3 velocity = direction*movespeed*Time.deltaTime;
         float percentspeed = velocity.magnitude / (movespeed * Time.deltaTime);
         anim.SetFloat("movePercent",percentspeed);
@@ -85,7 +89,7 @@ public class controller : MonoBehaviour {
             changestate("Swing");
         }
     }
-    void ReturnTMove() {
+    void ReturnTMovement() {
         changestate("Movement");
     }
 }
