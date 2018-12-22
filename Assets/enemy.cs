@@ -6,6 +6,8 @@ public class enemy : MonoBehaviour {
     Vector3 ancor;
     string state;
     Animator anim;
+    public GameObject rock;
+    public GameObject shootorigin;
     NavMeshAgent nav;
     public GameObject player;
 	// Use this for initialization
@@ -24,6 +26,10 @@ public class enemy : MonoBehaviour {
         }
         
 	}
+    void Changestate(string statename)
+    {
+
+    }
     void move()
     {
         Vector3 target = player.transform.position;
@@ -34,6 +40,19 @@ public class enemy : MonoBehaviour {
             target = ancor;
             nav.stoppingDistance = 0f;
         }
+        else
+        {
+            if (Random.Range(1, 100) < 2f)
+            {
+                Changestate("shoot");
+            }
+        }
         nav.SetDestination(target);
+    }
+    void ShootRock()
+    {
+        GameObject r = Instantiate(rock, shootorigin.transform.position, Quaternion.identity);
+        Rigidbody rockbody = r.GetComponent<Rigidbody>();
+        rockbody.AddForce(transform.forward * 500);
     }
 }
