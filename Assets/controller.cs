@@ -13,6 +13,7 @@ public class controller : MonoBehaviour {
     public float movespeed = 4;
 	// Use this for initialization
 	void Start () {
+        Cursor.lockState = CursorLockMode.Locked;
         cam = Camera.main;
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
@@ -31,6 +32,10 @@ public class controller : MonoBehaviour {
             jump();
             movement();
         }
+        if (Input.GetKeyDown("escape"))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
     void movement()
     {
@@ -41,8 +46,9 @@ public class controller : MonoBehaviour {
         float camerad = cam.transform.localEulerAngles.y;
         direction = Quaternion.AngleAxis(camerad, Vector3.up)*direction;
         Vector3 velocity = direction*movespeed*Time.deltaTime;
-        float percentspeed = velocity.magnitude / (movespeed * Time.deltaTime);
-        anim.SetFloat("movePercent",percentspeed);
+
+        Debug.Log(velocity.magnitude + "/" + (movespeed * Time.deltaTime));
+
         if (velocity.magnitude > 0)
         {
             float yAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
@@ -69,6 +75,9 @@ public class controller : MonoBehaviour {
         Vector3 gravityVector = -Vector3.up * gravity * Time.deltaTime;
         Vector3 jumpVector = Vector3.up * jumpVel * Time.deltaTime;
         cc.Move(velocity + gravityVector+jumpVector);
+
+        float percentspeed = velocity.magnitude / (movespeed * Time.deltaTime);
+        anim.SetFloat("movePercent", percentspeed);
     }
     void changestate(string StateName)
     {
