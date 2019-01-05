@@ -87,7 +87,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.24472575
+      - time: 0.08862819
         functionName: ShootRock
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -180,13 +180,6 @@ ModelImporter:
       events:
       - time: 0.5641572
         functionName: ShootRock
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.5364706
-        functionName: shootrock
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

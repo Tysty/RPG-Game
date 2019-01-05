@@ -13,14 +13,14 @@ public class enemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         ancor = transform.position;
-        state = "Move";
+        state = "move";
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if(state == "Move")
+        if(state == "move")
         {
             move();
         }
@@ -28,7 +28,8 @@ public class enemy : MonoBehaviour {
 	}
     void Changestate(string statename)
     {
-
+        state = statename;
+        anim.SetTrigger(statename);
     }
     void move()
     {
@@ -45,6 +46,7 @@ public class enemy : MonoBehaviour {
             if (Random.Range(1, 100) < 2f)
             {
                 Changestate("shoot");
+                ReturnToMovement();
             }
         }
         nav.SetDestination(target);
@@ -54,5 +56,9 @@ public class enemy : MonoBehaviour {
         GameObject r = Instantiate(rock, shootorigin.transform.position, Quaternion.identity);
         Rigidbody rockbody = r.GetComponent<Rigidbody>();
         rockbody.AddForce(transform.forward * 500);
+    }
+    void ReturnToMovement()
+    {
+        Changestate("move");
     }
 }

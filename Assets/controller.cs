@@ -8,11 +8,13 @@ public class controller : MonoBehaviour {
     public string state = "Movement";
     public float jumpVel = 0;
     public float jumpH = 16;
+    health healthb;
     public float gravity = 0f;
     Animator anim;
     public float movespeed = 4;
 	// Use this for initialization
 	void Start () {
+        healthb = GetComponent<health>();
         Cursor.lockState = CursorLockMode.Locked;
         cam = Camera.main;
         cc = GetComponent<CharacterController>();
@@ -36,6 +38,10 @@ public class controller : MonoBehaviour {
         {
             Cursor.lockState = CursorLockMode.None;
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+
+        }
     }
     void movement()
     {
@@ -46,8 +52,6 @@ public class controller : MonoBehaviour {
         float camerad = cam.transform.localEulerAngles.y;
         direction = Quaternion.AngleAxis(camerad, Vector3.up)*direction;
         Vector3 velocity = direction*movespeed*Time.deltaTime;
-
-        Debug.Log(velocity.magnitude + "/" + (movespeed * Time.deltaTime));
 
         if (velocity.magnitude > 0)
         {
@@ -100,5 +104,13 @@ public class controller : MonoBehaviour {
     }
     void ReturnTMovement() {
         changestate("Movement");
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "hurt")
+        {
+            changestate("hurt");
+            ReturnTMovement();
+        }
     }
 }
