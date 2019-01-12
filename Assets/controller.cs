@@ -113,4 +113,8 @@ public class controller : MonoBehaviour {
             ReturnTMovement();
         }
     }
+	void rtch(){
+		anim.SetTrigger ("Movement");
+
+	}
 }
